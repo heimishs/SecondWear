@@ -1,0 +1,22 @@
+const express = require("express");
+const dotenv = require("dotenv");
+const app = express();
+const port = 5000;
+
+// Middleware
+app.use(express.json());
+
+// 간단한 API 엔드포인트 예제
+app.get("/api/message", (req, res) => {
+  res.json({ message: "Hello from Node.js!" });
+});
+
+// 기본 라우트
+app.get("/", (req, res) => {
+  res.send("Hello, Node.js!");
+});
+
+// 서버 실행
+app.listen(port, () => {
+  console.log(`Server running on http://localhost:${port}`);
+});
