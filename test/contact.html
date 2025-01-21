@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecondWear</title>
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css//contact.css" />
+  </head>
+  <body>
+    <div id="wrap">
+      <header>
+        <div class="logoBox">
+          <a href="#">SecondWear</a>
+        </div>
+        <div class="menuBox">
+          <nav>
+            <ul class="gnb">
+              <li><a href="./about.html">About Us</a></li>
+              <li><a href="./index.html">Our lmpact</a></li>
+              <li><a href="./faq.html">FAQ</a></li>
+              <li><a href="./contact.html">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+      <main>
+        <div class="container">
+          <div class="content">
+            <h1>이용 문의</h1>
+            <form action="" target="_blank" method="get">
+              <div class="formBox">
+                <div class="formLeft">
+                  <label for="type">문의 유형</label>
+                  <select name="type" id="type">
+                    <option value="">이용문의</option>
+                    <option value="">오류문의</option>
+                    <option value="">의견제안</option>
+                  </select>
+                </div>
+                <div class="formRight">
+                  <div class="formInputs">
+                    <label for="">이름</label>
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="홍길동"
+                      required
+                    />
+                    <label for="">이메일</label>
+                    <input
+                      type="text"
+                      name="email"
+                      placeholder="test@naver.com"
+                      required
+                    />
+                    <label for="">연락처</label>
+                    <input
+                      type="text"
+                      name="tel"
+                      placeholder="010-0000-0000"
+                      required
+                    />
+                    <label for="">문의내용</label>
+                    <textarea
+                      name="text"
+                      id=""
+                      rows="10"
+                      placeholder="문의내용"
+                    ></textarea>
+                  </div>
+                  <div class="formAgreement">
+                    <label class="customCheckbox">
+                      <input type="checkbox" name="" value="동의" hidden />
+                      <!-- 기본 체크박스 숨김 -->
+                      <span class="checkmark"></span> 개인정보 이용동의
+                    </label>
+                    <button class="formSubmitButton">등록</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </main>
+      <footer>
+        <div class="inner">
+          <ul class="fnb">
+            <li><a href="#">Terms of Service</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Testimonials</a></li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+          <div>
+            <a class="logo" href="#">SecondWear</a>
+          </div>
+          <p>© 2024 SecondWear. All Rights Reserved.</p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>

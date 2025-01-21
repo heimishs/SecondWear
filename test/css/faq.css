@@ -1,0 +1,48 @@
+main .container {
+  width: 100%;
+  max-width: 1200px;
+}
+
+main .content {
+  color: #fff;
+  background-color: #161616;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+main .content > .faq-list {
+  list-style: none;
+  text-align: left;
+  padding: 0px;
+}
+
+main .content .faq-header {
+  display: flex;
+  align-items: center; /* 자식 요소들을 세로 가운데 정렬 */
+  justify-content: space-between; /* 좌우로 여백을 균등하게 분배 */
+  border-bottom: 1px solid gray;
+}
+
+main .content .faq-header .faq-title {
+  cursor: pointer;
+}
+
+main .content .faq-header .faq-toggle {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+/* FAQ 오픈일때  */
+
+.faq-content {
+  height: 0px;
+  overflow: hidden;
+  transition: all 0.5s;
+}
+
+.faq-content.open {
+  height: auto;
+  overflow: auto;
+}

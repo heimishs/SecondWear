@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"
+    />
+    <title>헌옷수거함 지도표시</title>
+    <script
+      type="text/javascript"
+      src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=0d3c18w7fb&submodules=geocoder"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+  </head>
+  <body>
+    <div id="map" style="width: 100%; height: 1000px"></div>
+
+    <script>
+      // 지도 초기화
+      var map = new naver.maps.Map("map", {
+        center: new naver.maps.LatLng(37.5665, 126.978), // 초기 중심 좌표
+        zoom: 10, //확대값
+      });
+
+      //클래스는 지도 위에 정보를 정의 (마커)
+      var infoWindow = new naver.maps.InfoWindow({});
+
+      // 공공데이터 가져오기
+      fetch("./data/open_data.csv")
+        .then((response) => response.text())
+        .then((csvData) => {
+          Papa.parse(csvData, {
+            header: false,
+            complete: function (results) {
+              // 담긴 위도 경도값
+              var data = results.data;
+
+              // 위도경도 배열을 순회하며 마커 생성
+              for (var i = 0; i < data.length - 1; i++) {
+                var position = data[i];
+                var lng = parseFloat(position[0]); // 경도
+                var lat = parseFloat(position[1]); // 위도
+
+                // 유효한 좌표만 마커처리 (둘중 하나라도 빈 값이면 걸러내기)
+                if (!isNaN(lat) && !isNaN(lng)) {
+                  // 마커 생성
+                  var marker = new naver.maps.Marker({
+                    position: new naver.maps.LatLng(lat, lng),
+                    map: map,
+                  });
+
+                  // 마커 클릭 이벤트 추가
+                  naver.maps.Event.addListener(marker, "click", function (e) {
+                    var latlng = e.coord;
+
+                    // Reverse geocoding (위도/경도 -> 주소 변환)
+                    naver.maps.Service.reverseGeocode(
+                      {
+                        coords: latlng,
+                        orders: ["roadaddr", "addr"],
+                      },
+                      function (status, response) {
+                        if (status === naver.maps.Service.Status.ERROR) {
+                          return alert("주소를 찾을 수 없습니다.");
+                        }
+
+                        var address =
+                          response.v2.address.jibunAddress ||
+                          response.v2.address.roadAddress;
+
+                        // InfoWindow에 커스텀 윈도우 표시 (마커)
+                        infoWindow.setContent(
+                          '<div style="padding:10px;">' + address + "</div>"
+                        );
+                        infoWindow.open(map, e.coord);
+                      }
+                    );
+                  });
+                }
+              }
+            },
+          });
+        })
+        .catch((error) => console.error("CSV 파일 로드 오류:", error));
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+main .container {
+  width: 100%;
+  max-width: 1200px;
+}
+
+main .content {
+  color: #fff;
+  padding: 50px;
+  box-sizing: border-box;
+}
+
+main .content .header {
+}
+
+main .content .header h1 {
+  display: inline-block;
+  margin: 0px 10px;
+}
+
+main .content .header p {
+  display: inline-block;
+  margin: 20px 55px;
+}
+
+main .content .posInfo {
+  display: flex;
+}
+
+main .content .posInfo .right {
+  padding: 40px;
+}
