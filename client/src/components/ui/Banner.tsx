@@ -6,7 +6,7 @@ import "swiper/css";
 
 const Banner: React.FC = () => {
     return (
-        <Swiper
+            <Swiper
             slidesPerView={1}
             spaceBetween={0}
             speed={1500}

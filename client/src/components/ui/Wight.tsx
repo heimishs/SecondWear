@@ -21,7 +21,7 @@ const Wight: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-5">
             <div className="w-full bg-white rounded-lg shadow-md">
               {/* 상단부: 아이콘(이미지) + 제목 */}
-              <img className="w-full" src="/demo/image2.jpg" alt="" />
+              <img className="w-full rounded-t-lg" src="/demo/image2.jpg" alt="" />
               <div className="p-5">
                 <div className="flex items-center mb-3">
                   <h3 className="text-lg font-semibold">상월곡동 24-191 헌옷수거함</h3>
@@ -48,7 +48,7 @@ const Wight: React.FC = () => {
       
             <div className="w-full bg-white rounded-lg shadow-md">
               {/* 상단부: 아이콘(이미지) + 제목 */}
-              <img className="w-full" src="/demo/image2.jpg" alt="" />
+              <img className="w-full rounded-t-lg" src="/demo/image2.jpg" alt="" />
               <div className="p-5">
                 <div className="flex items-center mb-3">
                   <h3 className="text-lg font-semibold">상월곡동 24-191 헌옷수거함</h3>
@@ -74,7 +74,7 @@ const Wight: React.FC = () => {
             </div>
             <div className="w-full bg-white rounded-lg shadow-md">
               {/* 상단부: 아이콘(이미지) + 제목 */}
-              <img className="w-full" src="/demo/image2.jpg" alt="" />
+              <img className="w-full rounded-t-lg" src="/demo/image2.jpg" alt="" />
               <div className="p-5">
                 <div className="flex items-center mb-3">
                   <h3 className="text-lg font-semibold">상월곡동 24-191 헌옷수거함</h3>
@@ -100,7 +100,7 @@ const Wight: React.FC = () => {
             </div>
             <div className="w-full bg-white rounded-lg shadow-md">
               {/* 상단부: 아이콘(이미지) + 제목 */}
-              <img className="w-full" src="/demo/image2.jpg" alt="" />
+              <img className="w-full rounded-t-lg" src="/demo/image2.jpg" alt="" />
               <div className="p-5">
                 <div className="flex items-center mb-3">
                   <h3 className="text-lg font-semibold">상월곡동 24-191 헌옷수거함</h3>
