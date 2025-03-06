@@ -5,18 +5,20 @@ import Content from "./components/layout/Content";
 import LoginPage from "./pages/LoginPage";
 import Signup from "./pages/Signup";
 import DetailSearch from "./pages/DetailSearch";
+import DetailInfo from "./pages/DetailInfo";
 
 function App() {
   return (
     <Router>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Content />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/Signup" element={<Signup />} />
-          <Route path="/Search" element={<DetailSearch />} />
-        </Routes>
-        <Footer />
+      <Header />
+      <Routes>
+        <Route path="/" element={<Content />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/Signup" element={<Signup />} />
+        <Route path="/Search" element={<DetailSearch />} />
+        <Route path="/DetailInfo" element={<DetailInfo />} />
+      </Routes>
+      <Footer />
     </Router>
   );
 }

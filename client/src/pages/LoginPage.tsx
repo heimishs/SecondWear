@@ -21,7 +21,6 @@ function Login() {
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           className="w-full p-3 mb-3 border rounded-lg bg-gray-200 text-gray-500"
-          
         />
 
         {/* 비밀번호 입력 */}
@@ -31,7 +30,6 @@ function Login() {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="w-full p-3 mb-3 border rounded-lg bg-gray-200 text-gray-500"
-          
         />
 
         {/* 자동 로그인 & 아이디 찾기 */}
