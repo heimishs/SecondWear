@@ -111,7 +111,7 @@ const locations = [
   },
 ];
 
-// 예시용 도시 목록 (실제로는 API 등을 통해 받아오는 식으로 확장 가능)
+// 예시용 도시 목록 API 받아오게끔 변경해야함
 const cityList = [
   "서울시 중구",
   "서울시 성북구",
@@ -125,17 +125,13 @@ const cityList = [
 ];
 
 function DetailSearch() {
-  // --------------------------
-  // 1) 무한 스크롤 관련 상태들
-  // --------------------------
+  // 무한 스크롤 관련 상태
   const [visibleCount, setVisibleCount] = useState(6);
   const [isLoading, setIsLoading] = useState(false);
   const displayedLocations = locations.slice(0, visibleCount);
   const sentinelRef = useRef<HTMLDivElement | null>(null);
 
-  // --------------------------
-  // 2) 자동완성(검색) 관련 상태
-  // --------------------------
+  // 자동완성(검색) 관련 상태
   const [searchTerm, setSearchTerm] = useState("");
   const [suggestions, setSuggestions] = useState<string[]>([]);
 
@@ -145,7 +141,7 @@ function DetailSearch() {
       // 검색어가 없으면 목록을 비움
       setSuggestions([]);
     } else {
-      // 검색어가 포함된 도시만 필터링 (대소문자 구분 X 예시)
+      // 검색어가 포함된 도시만 필터링
       const filtered = cityList.filter((city) =>
         city.toLowerCase().includes(searchTerm.toLowerCase())
       );
@@ -153,9 +149,7 @@ function DetailSearch() {
     }
   }, [searchTerm]);
 
-  // --------------------------
-  // 3) 무한 스크롤 Intersection Observer
-  // --------------------------
+  // 무한 스크롤 Intersection Observer
   const loadMore = () => {
     setIsLoading(true);
     setTimeout(() => {
@@ -188,13 +182,10 @@ function DetailSearch() {
     };
   }, [visibleCount, isLoading]);
 
-  // --------------------------
-  // 4) 자동완성 항목 클릭 시
-  // --------------------------
+  // 자동완성 항목 클릭 시
   const handleSuggestionClick = (city: string) => {
     setSearchTerm(city); // 클릭한 항목으로 검색창 값 변경
     setSuggestions([]); // 목록 닫기
-    // TODO: 이곳에서 바로 검색 로직을 실행하거나, 지도를 해당 위치로 이동하는 로직을 추가할 수 있음
   };
 
   return (
