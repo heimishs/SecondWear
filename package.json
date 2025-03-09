@@ -19,12 +19,13 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-native-svg": "^15.11.2",
-    "react-native-web": "^0.19.13",
-    "react-redux": "^9.2.0"
+    "react-redux": "^9.2.0",
+    "swiper": "^11.2.5"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
+    "@types/navermaps": "^3.7.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
