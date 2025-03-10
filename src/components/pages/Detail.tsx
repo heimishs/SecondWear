@@ -102,7 +102,7 @@ const SampleDetailPage: React.FC = () => {
       <div className="mt-4 bg-white rounded shadow-sm p-4">
         <label className="block text-sm font-semibold mb-2">방문했어요</label>
         <textarea
-          className="w-full border rounded p-2 focus:outline-none focus:ring-2 focus:ring-indigo-300 text-sm"
+          className="w-full border border-gray-300 rounded p-2 focus:outline-none focus:ring-2 focus:ring-indigo-300 text-sm"
           rows={3}
           placeholder="사용 후기를 남겨주세요"
           value={newReview}
@@ -121,7 +121,7 @@ const SampleDetailPage: React.FC = () => {
       {/* 후기 목록 */}
       <div className="mt-4 bg-white rounded shadow-sm p-4">
         {reviews.map((review) => (
-          <div key={review.id} className="border-b last:border-none py-3">
+          <div key={review.id} className="border-b border-gray-300 last:border-none py-3">
             <div className="flex items-center justify-between">
               <span className="font-semibold text-sm">{review.author}</span>
               <span className="text-gray-400 text-xs">{review.date}</span>

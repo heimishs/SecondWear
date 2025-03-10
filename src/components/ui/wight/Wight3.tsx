@@ -1,6 +1,10 @@
+"use client";
+
 import React from "react";
+import Image from "next/image";
 import "swiper/css";
 
+// 거래 아이템 목록
 const items = [
   {
     id: 1,
@@ -39,28 +43,31 @@ const items = [
 const Wight3: React.FC = () => {
   return (
     <div className="mt-20">
+      {/* 상단 타이틀 영역 */}
       <div className="flex justify-between items-center mb-4">
-        {/* 왼쪽: 제목 + 설명 */}
         <div>
-          <h2 className="text-2xl font-semibold">👕의류 거래</h2>
+          <h2 className="text-2xl font-semibold">👕 의류 거래</h2>
           <p className="text-gray-500 text-md">
-            내 위치와 가까운 헌옷수거함을 보여드려요!
+            다양한 의류 거래 상품을 확인하세요!
           </p>
         </div>
 
-        {/* 오른쪽: 더 보기 버튼 */}
         <button className="text-gray-400 text-md hover:text-gray-600">
           더 보기
         </button>
       </div>
+
+      {/* 반응형 그리드 레이아웃 */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
         {items.map((item) => (
-          <div key={item.id} className="flex bg-white rounded-lg ">
+          <div key={item.id} className="flex bg-white rounded-lg p-3 shadow-md">
             {/* 이미지 */}
-            <img
+            <Image
               src={item.img}
+              width={96} // w-24 (24 * 4px)
+              height={96} // h-24 (24 * 4px)
               alt={item.title}
-              className="w-24 h-24 rounded-md object-cover"
+              className="rounded-md object-cover"
             />
 
             {/* 내용 */}
@@ -87,9 +94,7 @@ const Wight3: React.FC = () => {
             </div>
 
             {/* 시간 */}
-            <p className="text-xs text-gray-400 whitespace-nowrap">
-              {item.time}
-            </p>
+            <p className="text-xs text-gray-400 whitespace-nowrap">{item.time}</p>
           </div>
         ))}
       </div>

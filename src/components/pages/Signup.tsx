@@ -1,4 +1,7 @@
+"use client"; 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 function Signup() {
   const [id, setId] = useState("");
@@ -35,6 +38,33 @@ function Signup() {
   // 비밀번호 확인 검증
   const isPasswordValid = password.length >= 8 && password === confirmPassword;
 
+
+  const [error, setError] = useState(""); // useState는 함수 바깥에서 선언
+  const router = useRouter(); // useRouter 선언 후 사용
+  const handleSignup = async () => {
+    console.log("회원가입 버튼 클릭"); // 함수 실행 확인
+  
+    setError(""); // 기존 오류 메시지 초기화
+    try {
+      console.log("API 요청 시작..."); // API 요청 시작 확인
+      const { data } = await axios.post("/api/auth/signup", {
+        id,
+        password,
+        email,
+        region,
+        usageType,
+      });
+  
+      console.log("회원가입 성공", data); // 응답 확인
+      alert("회원가입 성공!");
+      router.push("/login"); // 회원가입 후 로그인 페이지로 이동
+    } catch (err: any) {
+      console.error("회원가입 실패", err); // 에러 출력
+      setError(err.response?.data?.error || "회원가입 실패");
+    }
+  };
+  
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
@@ -49,7 +79,7 @@ function Signup() {
             placeholder="아이디"
             value={id}
             onChange={(e) => setId(e.target.value)}
-            className="w-full p-3 border rounded-lg bg-gray-100 text-gray-700 focus:ring-2 focus:ring-[#E0E97D]"
+            className="w-full p-3 rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#E0E97D]"
           />
           <button
             onClick={checkId}
@@ -72,18 +102,18 @@ function Signup() {
           placeholder="비밀번호"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-3 mb-3 border rounded-lg bg-gray-100 text-gray-700 focus:ring-2 focus:ring-[#E0E97D]"
+          className="w-full p-3 mb-3  rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#E0E97D]"
         />
         <input
           type="password"
           placeholder="비밀번호 확인"
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
-          className={`w-full p-3 mb-4 border rounded-lg ${
+          className={`w-full p-3 mb-4  rounded-lg ${
             isPasswordValid
               ? "bg-gray-100 text-gray-700"
               : "bg-red-100 text-red-500"
-          } focus:ring-2 focus:ring-[#E0E97D]`}
+          } focus:outline-none focus:ring-2 focus:ring-[#E0E97D]`}
         />
         <p className="text-gray-400 text-xs mb-4">
           8~16자 영문/숫자/특수문자를 조합하여 입력
@@ -100,7 +130,7 @@ function Signup() {
             placeholder="이메일"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border rounded-lg bg-gray-100 text-gray-700 focus:ring-2 focus:ring-[#E0E97D]"
+            className="w-full p-3  rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#E0E97D]"
           />
           <button
             onClick={sendVerificationCode}
@@ -124,7 +154,7 @@ function Signup() {
             placeholder="인증번호"
             value={verificationCode}
             onChange={(e) => setVerificationCode(e.target.value)}
-            className="w-full p-3 border rounded-lg bg-gray-100 text-gray-700 focus:ring-2 focus:ring-[#E0E97D]"
+            className="w-full p-3  rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#E0E97D]"
           />
           <span className="ml-2 text-[#757944] font-bold">04:59</span>
         </div>
@@ -137,7 +167,7 @@ function Signup() {
           id="region"
           value={region}
           onChange={(e) => setRegion(e.target.value)}
-          className="w-full p-3 mb-3 border rounded-lg bg-gray-100 text-gray-700 focus:ring-2 focus:ring-[#E0E97D]"
+          className="w-full p-3 mb-3  rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#E0E97D]"
         >
           <option value="">선택</option>
           <option value="서울">서울</option>
@@ -153,7 +183,7 @@ function Signup() {
           id="usageType"
           value={usageType}
           onChange={(e) => setUsageType(e.target.value)}
-          className="w-full p-3 mb-6 border rounded-lg bg-gray-100 text-gray-700 focus:ring-2 focus:ring-[#E0E97D]"
+          className="w-full p-3 mb-6  rounded-lg bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#E0E97D]"
         >
           <option value="">선택</option>
           <option value="개인">개인</option>
@@ -162,29 +192,16 @@ function Signup() {
 
         {/* 등록 버튼 */}
         <button
-          disabled={
-            !id ||
-            !isIdChecked ||
-            !isPasswordValid ||
-            !email ||
-            !isEmailVerified ||
-            !region ||
-            !usageType
-          }
-          className={`w-full p-3 font-bold rounded-lg transition ${
-            id &&
-            isIdChecked &&
-            isPasswordValid &&
-            email &&
-            isEmailVerified &&
-            region &&
-            usageType
-              ? "bg-[#E0E97D] text-[#757944] hover:bg-[#d9e367]"
-              : "bg-gray-300 text-gray-500 cursor-not-allowed"
-          }`}
-        >
-          등록
-        </button>
+  onClick={handleSignup}
+  disabled={!id || !isIdChecked || !isPasswordValid || !email || !isEmailVerified || !region || !usageType}
+  className={`w-full p-3 font-bold rounded-lg transition ${
+    id && isIdChecked && isPasswordValid && email && isEmailVerified && region && usageType
+      ? "bg-[#E0E97D] text-[#757944] hover:bg-[#d9e367]"
+      : "bg-gray-300 text-gray-500 cursor-not-allowed"
+  }`}
+>
+  등록
+</button>
       </div>
     </div>
   );

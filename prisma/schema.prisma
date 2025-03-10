@@ -1,0 +1,159 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id     Int    @id @default(autoincrement())
+  id          String @unique
+  password    String
+  email       String @unique
+  region      String?
+  type        EnumUserType
+  is_auth     Boolean @default(false)
+  create_at   DateTime @default(now())
+  update_at   DateTime?
+  delete_at   DateTime?
+
+  comments       Comment[]
+  commentLikes   CommentLike[]
+  sellingTransactions ClothesTransaction[] @relation(name: "Seller") 
+  buyingTransactions ClothesTransaction[] @relation(name: "Buyer") 
+  transactions   ClothesTransaction[] @relation(name: "UserTransactions")
+  reports        Report[]
+  reformStores   ReformStore[]
+}
+
+model Comment {
+  comment_id       Int    @id @default(autoincrement())
+  parent_comment_id Int?  
+  content          String
+  create_at        DateTime @default(now())
+  update_at        DateTime?
+  delete_at        DateTime?
+
+  user_id      Int
+  collection_id Int
+
+  user         User @relation(fields: [user_id], references: [user_id])
+  collection   CollectionBin @relation(fields: [collection_id], references: [collection_id])
+
+  commentLikes CommentLike[]
+}
+
+model CommentLike {
+  like_id     Int    @id @default(autoincrement())
+  user_id     Int
+  comment_id  Int
+  create_at   DateTime @default(now())
+
+  user        User @relation(fields: [user_id], references: [user_id])
+  comment     Comment @relation(fields: [comment_id], references: [comment_id])
+}
+
+model ClothesTransaction {
+  clothes_id   Int    @id @default(autoincrement())
+  title        String
+  description  String?
+  category     EnumClothesCategory
+  size         String?
+  status       EnumTransactionStatus
+  region       String?
+  location     String?
+  image_url    String?
+  create_at    DateTime @default(now())
+  update_at    DateTime?
+  delete_at    DateTime?
+
+  seller_id    Int
+  buyer_id     Int?
+
+  seller       User @relation(name: "Seller", fields: [seller_id], references: [user_id])
+  buyer        User? @relation(name: "Buyer", fields: [buyer_id], references: [user_id])
+
+  user_id      Int?
+  user         User? @relation(name: "UserTransactions", fields: [user_id], references: [user_id])
+}
+
+model CollectionBin {
+  collection_id     Int    @id @default(autoincrement())
+  title            String
+  description      String?
+  tel             String?
+  pickup_cycle     String?
+  collectable_items String?
+  create_at       DateTime @default(now())
+  update_at       DateTime?
+  delete_at       DateTime?
+
+  comments        Comment[]
+}
+
+model Report {
+  reports_id  Int    @id @default(autoincrement())
+  target_id   Int
+  target_type EnumReportTarget
+  reason      String?
+  details     String?
+  create_at   DateTime @default(now())
+  update_at   DateTime?
+  status      EnumReportStatus @default(PENDING)
+  user_id     Int
+
+  user        User @relation(fields: [user_id], references: [user_id])
+}
+
+model ReformStore {
+  store_id      Int    @id @default(autoincrement())
+  name         String
+  description  String?
+  region       String?
+  address      String
+  tel          String?
+  services     Json
+  operating_hours String?
+  rating       Decimal? @db.Decimal(3,2)
+  create_at    DateTime @default(now())
+  update_at    DateTime?
+  delete_at    DateTime?
+
+  user_id      Int
+  user         User @relation(fields: [user_id], references: [user_id])
+}
+
+enum EnumUserType {
+  ADMIN
+  NORMAL
+}
+
+enum EnumClothesCategory {
+  TOP
+  BOTTOM
+  OUTER
+  SHOES
+  ACCESSORY
+  ETC
+}
+
+enum EnumTransactionStatus {
+  AVAILABLE
+  RESERVED
+  COMPLETED
+}
+
+enum EnumReportTarget {
+  COMMENT
+  COLLECTION_BIN
+  CLOTHES_TRANSACTION
+  REFORM_STORE
+}
+
+enum EnumReportStatus {
+  PENDING
+  RESOLVED
+  REJECTED
+}

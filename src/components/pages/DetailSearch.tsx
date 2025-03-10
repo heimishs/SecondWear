@@ -182,20 +182,39 @@ function DetailSearch() {
   return (
     <div className="flex flex-col items-center p-5 w-full max-w-[1200px]">
       {/* 지도 영역 */}
-      <div className="w-full max-w-[1200px] h-[400px] md:h-[600px] mx-auto relative overflow-hidden rounded-lg shadow-inner">
+      <div className="w-full max-w-[1200px] h-[400px] md:h-[600px] mx-auto relative  rounded-lg shadow-inner">
         <MapComponent />
 
         {/* 검색 바 (PC) */}
         <div className="hidden lg:flex flex-col absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white p-2 rounded-lg shadow-lg w-[400px]">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="우리 동네를 검색해보세요"
-              className="border-none focus:outline-none flex-grow p-2 text-lg w-full"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="우리 동네를 검색해보세요"
+            className="border-none focus:outline-none flex-grow p-2 text-lg w-full"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+
+         {/* 자동완성 목록 표시 */}
+          {suggestions.length > 0 && (
+            <ul className="absolute left-0 w-full bg-white border rounded-lg shadow-lg mt-1 z-50">
+              {suggestions.map((suggestion, index) => (
+                <li
+                  key={index}
+                  className="p-2 hover:bg-gray-100 cursor-pointer"
+                  onClick={() => {
+                    setSearchTerm(suggestion); // 입력란 업데이트
+                    setSuggestions([]); // 자동완성 목록 숨기기
+                  }}
+                >
+                  {suggestion}
+                </li>
+              ))}
+            </ul>
+          )}
+
+        </div>
         </div>
       </div>
 
